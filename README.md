@@ -66,6 +66,7 @@ ollama pull qwen2.5
 git clone https://github.com/tanushreedhar74/ROAI.git
 --
 cd ROAI
+
 mvn spring-boot:run
 
 
