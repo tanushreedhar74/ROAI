@@ -63,7 +63,6 @@ cd ROAI
 mvn spring-boot:run
 Open: http://localhost:8080
 ---
-
 ## API Endpoints
 
 | Method | Endpoint | Description |
