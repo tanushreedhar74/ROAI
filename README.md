@@ -51,18 +51,23 @@ Low confidence → AI-generated response
 
 ## Run Locally
 
-Prerequisites: Java 17, Maven, MySQL, Ollama
+Prerequisites: 
 ---
+Java 17, Maven, MySQL, Ollama
+
 
 
 ollama pull nomic-embed-text
+
 ollama pull llama3.2
+
 ollama pull qwen2.5
 
 git clone https://github.com/tanushreedhar74/ROAI.git
+--
 cd ROAI
 mvn spring-boot:run
----
+
 
 Open: http://localhost:8080
 ---
