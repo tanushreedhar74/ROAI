@@ -61,18 +61,10 @@ ollama pull qwen2.5
 git clone https://github.com/tanushreedhar74/ROAI.git
 cd ROAI
 mvn spring-boot:run
+
 Open: http://localhost:8080
----
-## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| POST | `/doc/insert` | Store document with embedding |
-| POST | `/doc/ask` | Ask question (retrieval + AI fallback) |
-
----
-
-## Author
-
-Tanushree  
-GitHub: https://github.com/tanushreedhar74
+API Endpoints
+Method	Endpoint	Description
+POST	/doc/insert	Store document with embedding
+POST	/doc/ask	Ask question (retrieval + AI fallback)
