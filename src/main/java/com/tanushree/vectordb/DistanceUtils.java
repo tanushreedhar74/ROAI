@@ -5,6 +5,10 @@ public class DistanceUtils {
     //ecludian,manhattan,cosine
     public static float cosine(float[]a,float[]b){
         //formula=A.B/|A||B|;
+        if (a.length != b.length) {
+            System.out.println("Vector size mismatch: " + a.length + " vs " + b.length);
+            return Float.MAX_VALUE; // skip this result
+        }
         float dot=0;
         float normA=0;
         float normB=0;

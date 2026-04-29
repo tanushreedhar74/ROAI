@@ -31,10 +31,10 @@ public class OllamaClient {
     public String generate(String prompt,String model){
         Map response=client.post().uri("/api/generate")
                 .bodyValue(Map.of(
-                "model", model,
-                "prompt", prompt,
-                "stream", false
-        )).retrieve().bodyToMono(Map.class).block();
+                        "model", model,
+                        "prompt", prompt,
+                        "stream", false
+                )).retrieve().bodyToMono(Map.class).block();
         return (String)response.get("response");
     }
 

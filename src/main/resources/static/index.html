@@ -247,8 +247,8 @@
         </div>
         <div class="panel-body">
             <div class="field-group">
-                <div class="field-label">Document ID</div>
-                <input type="text" id="docId" placeholder="e.g. resume, notes-1, chapter3"/>
+
+
             </div>
             <div class="field-group">
                 <div class="field-label">Paste your text</div>
@@ -335,27 +335,46 @@
     }
 
     async function insertDoc() {
-      const id = document.getElementById('docId').value.trim();
-      const text = document.getElementById('docText').value.trim();
-      if (!id || !text) { toast('Please fill in both fields', 'error'); return; }
-      const btn = document.getElementById('insertBtn');
-      btn.disabled = true; btn.innerHTML = '<span>⏳</span> Embedding...';
-      try {
-        const r = await fetch(`${API}/doc/insert`, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({id, text})
-        });
-        if (r.ok) {
-          docs.push({id, preview: text.slice(0,60)+'...'});
-          renderDocs();
-          document.getElementById('docId').value = '';
-          document.getElementById('docText').value = '';
-          toast(`✓ "${id}" stored successfully`);
-        } else { toast('Failed to store document', 'error'); }
-      } catch { toast('Cannot reach server. Is Spring Boot running?', 'error'); }
-      btn.disabled = false; btn.innerHTML = '<span>⚡</span> Embed & Store';
+  const text = document.getElementById('docText').value.trim();
+
+  if (!text) {
+    toast('Please enter some text', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('insertBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span> Embedding...';
+
+  try {
+    const r = await fetch(`${API}/doc/insert`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ text })
+    });
+
+    if (r.ok) {
+      docs.push({
+        id: "Doc " + (docs.length + 1),
+        preview: text.slice(0,60) + '...'
+      });
+
+      renderDocs();
+      document.getElementById('docText').value = '';
+
+      toast('✓ Document stored successfully');
+    } else {
+      toast('Failed to store document', 'error');
     }
+
+  } catch {
+    toast('Cannot reach server. Is Spring Boot running?', 'error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<span>⚡</span> Embed & Store';
+}
+
 
     function renderDocs() {
       const list = document.getElementById('docList');

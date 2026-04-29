@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,11 +23,12 @@ public class DocumentController {
     DBService dbService;
     @PostMapping("/insert")
     public ResponseEntity<String> insert(@RequestBody DocInsertRequest request){
+        String id = UUID.randomUUID().toString();
         float[]vector=ollamaClient.embed(request.text);
-        Vector v=new Vector(request.id, vector, request.text);
+        Vector v=new Vector(id, vector, request.text);
         vectorStore.add(v);
-        dbService.save(request.id, request.text, Arrays.toString(vector));
-        return ResponseEntity.ok("Document inserted: "+request.id);
+        dbService.save(id, request.text, Arrays.toString(vector));
+        return ResponseEntity.ok("Document inserted: "+id);
     }
     @PostMapping("/ask")
     public ResponseEntity<String>ask(@RequestBody AskRequest request){
