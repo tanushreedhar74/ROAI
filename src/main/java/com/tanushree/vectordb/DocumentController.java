@@ -31,32 +31,41 @@ public class DocumentController {
         return ResponseEntity.ok("Document inserted: "+id);
     }
     @PostMapping("/ask")
-    public ResponseEntity<String>ask(@RequestBody AskRequest request){
-        //Convert question to vector
-        float[]questionVector=ollamaClient.embed(request.question);
-        //find similar
-        List<SearchResult> results = vectorStore.search(questionVector, request.k, "cosine");
-        //select model
+    public ResponseEntity<String> ask(@RequestBody AskRequest request) {
+
         String selectedModel = (request.model != null && !request.model.isEmpty())
                 ? request.model
                 : "llama3.2";
-        float bestDistance = results.isEmpty() ? Float.MAX_VALUE : results.get(0).distance;
-        String answer;
 
-        // handle short queries
-        if (request.question.length() < 5) {
+        // Handle short queries directly via AI
+        if (request.question.trim().length() < 5) {
             return ResponseEntity.ok(
                     ollamaClient.generate(request.question, selectedModel)
             );
         }
-        if (!results.isEmpty() && bestDistance < 0.4f) {
-            // return exact stored answer
-            String dbAnswer = results.get(0).vector.text;
-            return ResponseEntity.ok(dbAnswer);
-        } // fallback → use AI
+
+        float[] questionVector = ollamaClient.embed(request.question);
+        List<SearchResult> results = vectorStore.search(questionVector, 1, "cosine");
+
+        float bestDistance = results.isEmpty() ? Float.MAX_VALUE : results.get(0).distance;
+
+        // Strong match → return exact answer from DB
+        System.out.println("Question: " + request.question);
+        System.out.println("Results count: " + results.size());
+        System.out.println("Best distance: " + bestDistance);
+        if (!results.isEmpty()) {
+            System.out.println("Best match: " + results.get(0).vector.text);
+        }
+        if (!results.isEmpty() && bestDistance < 0.47f) {
+            return ResponseEntity.ok(results.get(0).vector.text);
+        }
+
+        // Nothing relevant in DB → answer from AI general knowledge only
+        System.out.println("Question: " + request.question);
+        System.out.println("Results count: " + results.size());
+        System.out.println("Best distance: " + bestDistance);
         return ResponseEntity.ok(
                 ollamaClient.generate(request.question, selectedModel)
         );
-
     }
 }
