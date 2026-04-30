@@ -78,3 +78,11 @@ API Endpoints
 Method	Endpoint	Description
 POST	/doc/insert	Store document with embedding
 POST	/doc/ask	Ask question (retrieval + AI fallback)
+## Screenshots
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 113420" src="https://github.com/user-attachments/assets/5bb713f7-03e0-493e-ad1c-b3c29ecf2b73" />
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 113329" src="https://github.com/user-attachments/assets/4c4e317a-5f3f-424d-8bc6-39042ebffdf0" />
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 113019" src="https://github.com/user-attachments/assets/02ce3a78-d859-483d-ad98-8ce037121651" />
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 112954" src="https://github.com/user-attachments/assets/1d5752eb-701e-4b53-abc3-3b8c0176cbb1" />
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 112653" src="https://github.com/user-attachments/assets/78599811-2ffd-4427-8962-b5648ceed027" />
+<img width="1920" height="1080" alt="Screenshot 2026-04-30 112556" src="https://github.com/user-attachments/assets/599b3a70-ef13-457d-82ed-859e0d4dcc04" />
+
